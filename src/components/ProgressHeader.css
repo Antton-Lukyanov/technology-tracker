@@ -33,15 +33,27 @@
   border-radius: 2px;
 }
 
-/* Stats grid - обновлённая версия stats */
-.stats {
+/* Stats grid - фиксированная версия */
+.stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  margin: 2.5rem 0;
 }
 
-.stat {
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-card {
   background: #f8fafc;
   border-radius: 16px;
   padding: 1.5rem;
@@ -50,16 +62,21 @@
   border: 1px solid #eef2f7;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
 }
 
-.stat:hover {
+.stat-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
   background: white;
 }
 
 /* Цветные акценты для каждой статистики */
-.stat:nth-child(1)::before {
+.stat-card.total::before {
   content: '';
   position: absolute;
   top: 0;
@@ -70,7 +87,7 @@
   border-radius: 16px 16px 0 0;
 }
 
-.stat:nth-child(2)::before {
+.stat-card.completed::before {
   content: '';
   position: absolute;
   top: 0;
@@ -81,7 +98,7 @@
   border-radius: 16px 16px 0 0;
 }
 
-.stat:nth-child(3)::before {
+.stat-card.in-progress::before {
   content: '';
   position: absolute;
   top: 0;
@@ -92,16 +109,33 @@
   border-radius: 16px 16px 0 0;
 }
 
-.number {
+.stat-card.not-started::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #e74c3c;
+  border-radius: 16px 16px 0 0;
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.stat-number {
   display: block;
   font-size: 2.5rem;
   font-weight: 700;
   color: #2c3e50;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   line-height: 1;
 }
 
-.label {
+.stat-label {
   display: block;
   font-size: 0.95rem;
   color: #7f8c8d;
@@ -109,15 +143,22 @@
   margin-bottom: 0.5rem;
 }
 
-/* Дополнительный процент для завершённых */
-.stat:nth-child(2) .label::after {
-  content: ' (Прогресс)';
-  font-size: 0.85rem;
+.stat-percent {
+  display: block;
+  font-size: 0.9rem;
   color: #2ecc71;
   font-weight: 600;
+  background: rgba(46, 204, 113, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  margin-top: 0.5rem;
 }
 
 /* Progress section */
+.overall-progress {
+  margin: 2rem 0;
+}
+
 .progress-section {
   margin: 2.5rem 0;
   padding: 1.5rem;
@@ -144,42 +185,6 @@
 .progress-info strong {
   color: #2c3e50;
   font-weight: 600;
-}
-
-.progress-bar {
-  height: 14px;
-  background: #e0e6ed;
-  border-radius: 7px;
-  overflow: hidden;
-  position: relative;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #3498db, #2ecc71);
-  border-radius: 7px;
-  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  min-width: 20px;
-}
-
-.progress-fill::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.3) 50%, 
-    transparent 100%);
-  animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
 }
 
 /* Status distribution */
@@ -215,6 +220,7 @@
   position: relative;
   transition: all 0.3s ease;
   overflow: hidden;
+  min-width: 80px;
 }
 
 .status-bar:hover {
@@ -253,17 +259,17 @@
     width: 60px;
   }
   
-  .stats {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .stat {
+  .stat-card {
     padding: 1.25rem;
+    min-height: 100px;
   }
   
-  .number {
+  .stat-number {
     font-size: 2rem;
+  }
+  
+  .stat-icon {
+    font-size: 1.5rem;
   }
   
   .progress-info {
@@ -274,6 +280,11 @@
   
   .status-distribution h3 {
     text-align: center;
+  }
+  
+  .status-bar {
+    font-size: 0.8rem;
+    min-width: 60px;
   }
 }
 
@@ -287,19 +298,11 @@
     margin-bottom: 1.5rem;
   }
   
-  .number {
+  .stat-number {
     font-size: 1.75rem;
-  }
-  
-  .progress-bar {
-    height: 12px;
   }
   
   .status-bars {
     height: 35px;
-  }
-  
-  .status-bar {
-    font-size: 0.8rem;
   }
 }

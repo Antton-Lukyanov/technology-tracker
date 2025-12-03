@@ -1,89 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
 import TechnologyCard from './components/TechnologyCard';
 import ProgressHeader from './components/ProgressHeader';
+import QuickActions from './components/QuickActions/QuickActions';
+import useTechnologies from './hooks/useTechnologies';
 
 function App() {
-  // Начальные данные с добавленным полем notes
-  const initialTechnologies = [
-    { id: 1, title: 'React Components', description: 'Изучение базовых компонентов React и их жизненного цикла', status: 'not-started', notes: '' },
-    { id: 2, title: 'JSX Syntax', description: 'Освоение синтаксиса JSX и его отличий от HTML', status: 'not-started', notes: '' },
-    { id: 3, title: 'State Management', description: 'Работа с состоянием компонентов через useState', status: 'in-progress', notes: '' },
-    { id: 4, title: 'React Hooks', description: 'Использование хуков: useEffect, useContext, useRef', status: 'not-started', notes: '' },
-    { id: 5, title: 'React Router', description: 'Маршрутизация в React приложениях', status: 'not-started', notes: '' },
-    { id: 6, title: 'API Integration', description: 'Работа с внешними API через fetch/axios', status: 'not-started', notes: '' },
-    { id: 7, title: 'Component Libraries', description: 'Использование UI-библиотек (Material-UI, Ant Design)', status: 'completed', notes: '' },
-    { id: 8, title: 'Testing', description: 'Тестирование компонентов с Jest и React Testing Library', status: 'in-progress', notes: '' }
-  ];
+  const {
+    technologies,
+    updateStatus,
+    updateNotes,
+    markAllAsCompleted,
+    resetAllStatuses,
+    clearAllNotes,
+    pickRandomTech,
+    progress,
+    categoryStats
+  } = useTechnologies();
 
-  const [technologies, setTechnologies] = useState(initialTechnologies);
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Эффект для загрузки данных из localStorage при первом рендере
-  useEffect(() => {
-    const savedData = localStorage.getItem('techTrackerData');
-    if (savedData) {
-      try {
-        const parsedData = JSON.parse(savedData);
-        setTechnologies(parsedData);
-        console.log('Данные загружены из localStorage');
-      } catch (error) {
-        console.error('Ошибка при загрузке данных из localStorage:', error);
-      }
-    }
-  }, []);
-
-  // Эффект для сохранения данных в localStorage при изменении technologies
-  useEffect(() => {
-    localStorage.setItem('techTrackerData', JSON.stringify(technologies));
-    console.log('Данные сохранены в localStorage');
-  }, [technologies]);
-
-  const handleStatusChange = (id, newStatus) => {
-    setTechnologies(prevTech => 
-      prevTech.map(tech => 
-        tech.id === id ? { ...tech, status: newStatus } : tech
-      )
-    );
-  };
-
-  const updateTechnologyNotes = (techId, newNotes) => {
-    setTechnologies(prevTech =>
-      prevTech.map(tech =>
-        tech.id === techId ? { ...tech, notes: newNotes } : tech
-      )
-    );
-  };
-
-  const markAllAsCompleted = () => {
-    setTechnologies(prevTech => 
-      prevTech.map(tech => ({ ...tech, status: 'completed' }))
-    );
-  };
-
-  const resetAllStatuses = () => {
-    setTechnologies(prevTech => 
-      prevTech.map(tech => ({ ...tech, status: 'not-started' }))
-    );
-  };
-
-  const pickRandomTech = () => {
-    const notStarted = technologies.filter(t => t.status === 'not-started');
-    if (notStarted.length > 0) {
-      const randomTech = notStarted[Math.floor(Math.random() * notStarted.length)];
-      handleStatusChange(randomTech.id, 'in-progress');
-      alert(`Следующая технология: "${randomTech.title}"`);
-    } else {
-      alert('Все технологии уже начаты или выполнены!');
-    }
-  };
-
-  const clearAllNotes = () => {
-    setTechnologies(prevTech =>
-      prevTech.map(tech => ({ ...tech, notes: '' }))
-    );
-  };
 
   // Фильтрация по статусу и поисковому запросу
   const filteredTechnologies = technologies.filter(tech => {
@@ -99,37 +35,28 @@ function App() {
     return statusMatch && searchMatch;
   });
 
-  const categories = [...new Set(technologies.map(t => t.title.split(' ')[0]))];
+  const categories = [...new Set(technologies.map(t => t.category || 'other'))];
 
   return (
     <div className="App">
       <header className="App-header">
         <div className="header-content">
           <h1>Трекер изучения технологий</h1>
-          <p className="header-subtitle">Кликайте на карточки для изменения статуса изучения</p>
+          <p className="header-subtitle">Используйте переиспользуемые компоненты и кастомные хуки</p>
         </div>
       </header>
 
       <main className="container">
-        <ProgressHeader technologies={technologies} />
+        <ProgressHeader technologies={technologies} progress={progress} />
 
-        <div className="quick-actions">
-          <h3 className="section-title">Быстрые действия</h3>
-          <div className="action-buttons">
-            <button onClick={markAllAsCompleted} className="btn btn-success">
-              ✅ Отметить все как выполненные
-            </button>
-            <button onClick={resetAllStatuses} className="btn btn-warning">
-              🔄 Сбросить все статусы
-            </button>
-            <button onClick={pickRandomTech} className="btn btn-primary">
-              🎲 Случайный выбор следующей
-            </button>
-            <button onClick={clearAllNotes} className="btn btn-secondary">
-              🗑️ Очистить все заметки
-            </button>
-          </div>
-        </div>
+        <QuickActions
+          onMarkAllCompleted={markAllAsCompleted}
+          onResetAll={resetAllStatuses}
+          onClearAllNotes={clearAllNotes}
+          onPickRandomTech={pickRandomTech}
+          technologies={technologies}
+          categoryStats={categoryStats}
+        />
 
         <div className="search-box">
           <h3 className="section-title">Поиск технологий</h3>
@@ -207,8 +134,8 @@ function App() {
                   description={tech.description}
                   status={tech.status}
                   notes={tech.notes}
-                  onStatusChange={handleStatusChange}
-                  onNotesChange={updateTechnologyNotes}
+                  onStatusChange={updateStatus}
+                  onNotesChange={updateNotes}
                 />
               ))
             ) : (
@@ -236,12 +163,12 @@ function App() {
 
         <div className="storage-info">
           <h3 className="section-title">Информация о хранилище</h3>
-          <p>Данные автоматически сохраняются в localStorage. Все заметки и статусы сохраняются после перезагрузки страницы.</p>
+          <p>Данные автоматически сохраняются в localStorage с использованием кастомного хука useLocalStorage. Все заметки и статусы сохраняются после перезагрузки страницы.</p>
         </div>
       </main>
 
       <footer className="footer">
-        <p>© 2025 Трекер технологий • Данные сохраняются в localStorage • React State Management • UseEffect</p>
+        <p>© 2025 Трекер технологий • Кастомные хуки и переиспользуемые компоненты • React State Management</p>
       </footer>
     </div>
   );
