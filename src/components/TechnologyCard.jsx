@@ -1,7 +1,6 @@
 import './TechnologyCard.css';
 
 function TechnologyCard({ id, title, description, status, onStatusChange }) {
-  // Обработчик клика по карточке
   const handleCardClick = () => {
     const nextStatus = {
       'not-started': 'in-progress',
@@ -12,19 +11,28 @@ function TechnologyCard({ id, title, description, status, onStatusChange }) {
     onStatusChange(id, nextStatus);
   };
 
-  // Иконки для разных статусов
-  const statusIcons = {
-    'not-started': '⭕',
-    'in-progress': '🔄',
-    'completed': '✅'
+  const statusConfig = {
+    'not-started': {
+      icon: '⭕',
+      label: 'Не начато',
+      color: '#e74c3c',
+      bgColor: 'rgba(231, 76, 60, 0.1)'
+    },
+    'in-progress': {
+      icon: '🔄',
+      label: 'В процессе',
+      color: '#f39c12',
+      bgColor: 'rgba(243, 156, 18, 0.1)'
+    },
+    'completed': {
+      icon: '✅',
+      label: 'Выполнено',
+      color: '#2ecc71',
+      bgColor: 'rgba(46, 204, 113, 0.1)'
+    }
   };
 
-  // Тексты статусов на русском
-  const statusTexts = {
-    'not-started': 'Не начато',
-    'in-progress': 'В процессе',
-    'completed': 'Выполнено'
-  };
+  const config = statusConfig[status];
 
   return (
     <div 
@@ -32,17 +40,34 @@ function TechnologyCard({ id, title, description, status, onStatusChange }) {
       onClick={handleCardClick}
       title="Кликните для изменения статуса"
     >
-      <div className="card-header">
-        <h3>{title}</h3>
-        <span className="status-icon">{statusIcons[status]}</span>
+      <div className="card-content">
+        <div className="card-header">
+          <div className="status-indicator" style={{ backgroundColor: config.bgColor, color: config.color }}>
+            <span className="status-icon">{config.icon}</span>
+            <span className="status-label">{config.label}</span>
+          </div>
+          <div className="card-actions">
+            <button className="change-status-btn">Изменить статус</button>
+          </div>
+        </div>
+        
+        <h3 className="card-title">{title}</h3>
+        
+        <p className="card-description">{description}</p>
+        
+        <div className="card-footer">
+          <div className="progress-hint">
+            <span className="hint-text">Кликните для переключения статуса</span>
+            <div className="status-flow">
+              <span className="flow-arrow">→</span>
+              <span className="flow-text">Не начато → В процессе → Выполнено</span>
+            </div>
+          </div>
+          <div className="card-id">#{id}</div>
+        </div>
       </div>
-      <p className="card-description">{description}</p>
-      <div className="card-footer">
-        <span className={`status-badge status-${status}`}>
-          {statusTexts[status]}
-        </span>
-        <span className="click-hint">Кликните для изменения →</span>
-      </div>
+      
+      <div className="status-border" style={{ backgroundColor: config.color }}></div>
     </div>
   );
 }

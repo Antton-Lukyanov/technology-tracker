@@ -1,50 +1,305 @@
 .progress-header {
   background: white;
-  border-radius: 12px;
-  padding: 25px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eef2f7;
+  transition: all 0.3s ease;
+}
+
+.progress-header:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
 .progress-header h2 {
-  margin-bottom: 20px;
-  color: #333;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+  text-align: left;
 }
 
+.progress-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  border-radius: 2px;
+}
+
+/* Stats grid - обновлённая версия stats */
 .stats {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .stat {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 1.5rem;
   text-align: center;
-  flex: 1;
+  transition: all 0.3s ease;
+  border: 1px solid #eef2f7;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+/* Цветные акценты для каждой статистики */
+.stat:nth-child(1)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #3498db;
+  border-radius: 16px 16px 0 0;
+}
+
+.stat:nth-child(2)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #2ecc71;
+  border-radius: 16px 16px 0 0;
+}
+
+.stat:nth-child(3)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #f39c12;
+  border-radius: 16px 16px 0 0;
 }
 
 .number {
   display: block;
-  font-size: 2.5em;
-  font-weight: bold;
-  color: #667eea;
-  margin-bottom: 5px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  line-height: 1;
 }
 
 .label {
-  color: #666;
-  font-size: 0.9em;
+  display: block;
+  font-size: 0.95rem;
+  color: #7f8c8d;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+/* Дополнительный процент для завершённых */
+.stat:nth-child(2) .label::after {
+  content: ' (Прогресс)';
+  font-size: 0.85rem;
+  color: #2ecc71;
+  font-weight: 600;
+}
+
+/* Progress section */
+.progress-section {
+  margin: 2.5rem 0;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 16px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  color: #5f6368;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.progress-info span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.progress-info strong {
+  color: #2c3e50;
+  font-weight: 600;
 }
 
 .progress-bar {
-  height: 12px;
-  background: #eee;
-  border-radius: 6px;
+  height: 14px;
+  background: #e0e6ed;
+  border-radius: 7px;
   overflow: hidden;
+  position: relative;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-  border-radius: 6px;
-  transition: width 0.5s ease;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  border-radius: 7px;
+  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  min-width: 20px;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Status distribution */
+.status-distribution {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eef2f7;
+}
+
+.status-distribution h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.status-bars {
+  display: flex;
+  height: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.status-bar:hover {
+  transform: scale(1.05);
+  z-index: 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.status-bar.completed { 
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.status-bar.in-progress { 
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.status-bar.not-started { 
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .progress-header {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .progress-header h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .progress-header h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+  }
+  
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .stat {
+    padding: 1.25rem;
+  }
+  
+  .number {
+    font-size: 2rem;
+  }
+  
+  .progress-info {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+  
+  .status-distribution h3 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .progress-header {
+    padding: 1.25rem;
+  }
+  
+  .progress-header h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .number {
+    font-size: 1.75rem;
+  }
+  
+  .progress-bar {
+    height: 12px;
+  }
+  
+  .status-bars {
+    height: 35px;
+  }
+  
+  .status-bar {
+    font-size: 0.8rem;
+  }
 }

@@ -4,7 +4,6 @@ import TechnologyCard from './components/TechnologyCard';
 import ProgressHeader from './components/ProgressHeader';
 
 function App() {
-  // Состояние для массива технологий
   const [technologies, setTechnologies] = useState([
     { id: 1, title: 'React Components', description: 'Изучение базовых компонентов React и их жизненного цикла', status: 'not-started' },
     { id: 2, title: 'JSX Syntax', description: 'Освоение синтаксиса JSX и его отличий от HTML', status: 'not-started' },
@@ -16,10 +15,8 @@ function App() {
     { id: 8, title: 'Testing', description: 'Тестирование компонентов с Jest и React Testing Library', status: 'in-progress' }
   ]);
 
-  // Состояние для активного фильтра
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // Функция для изменения статуса технологии
   const handleStatusChange = (id, newStatus) => {
     setTechnologies(prevTech => 
       prevTech.map(tech => 
@@ -28,7 +25,6 @@ function App() {
     );
   };
 
-  // Быстрые действия
   const markAllAsCompleted = () => {
     setTechnologies(prevTech => 
       prevTech.map(tech => ({ ...tech, status: 'completed' }))
@@ -46,72 +42,69 @@ function App() {
     if (notStarted.length > 0) {
       const randomTech = notStarted[Math.floor(Math.random() * notStarted.length)];
       handleStatusChange(randomTech.id, 'in-progress');
-      alert(`🎯 Следующая технология: "${randomTech.title}"`);
+      alert(`Следующая технология: "${randomTech.title}"`);
     } else {
-      alert('🎉 Все технологии уже начаты или выполнены!');
+      alert('Все технологии уже начаты или выполнены!');
     }
   };
 
-  // Фильтрация технологий
   const filteredTechnologies = technologies.filter(tech => {
     if (activeFilter === 'all') return true;
     return tech.status === activeFilter;
   });
 
-  // Получение уникальных категорий (для статистики)
   const categories = [...new Set(technologies.map(t => t.title.split(' ')[0]))];
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🚀 Трекер изучения технологий</h1>
-        <p>Кликайте на карточки для изменения статуса изучения</p>
+        <div className="header-content">
+          <h1>Трекер изучения технологий</h1>
+          <p className="header-subtitle">Кликайте на карточки для изменения статуса изучения</p>
+        </div>
       </header>
 
       <main className="container">
-        {/* Компонент статистики */}
         <ProgressHeader technologies={technologies} />
 
-        {/* Быстрые действия */}
         <div className="quick-actions">
-          <h3>⚡ Быстрые действия</h3>
+          <h3 className="section-title">Быстрые действия</h3>
           <div className="action-buttons">
-            <button onClick={markAllAsCompleted} className="btn-success">
-              ✅ Отметить все как выполненные
+            <button onClick={markAllAsCompleted} className="btn btn-success">
+              Отметить все как выполненные
             </button>
-            <button onClick={resetAllStatuses} className="btn-warning">
-              🔄 Сбросить все статусы
+            <button onClick={resetAllStatuses} className="btn btn-warning">
+              Сбросить все статусы
             </button>
-            <button onClick={pickRandomTech} className="btn-primary">
-              🎲 Случайный выбор следующей
+            <button onClick={pickRandomTech} className="btn btn-primary">
+              Случайный выбор следующей
             </button>
           </div>
         </div>
 
-        {/* Фильтры */}
         <div className="filters">
-          <h3>🔍 Фильтровать по статусу:</h3>
+          <h3 className="section-title">Фильтровать по статусу</h3>
           <div className="filter-buttons">
             <button 
-              className={activeFilter === 'all' ? 'active' : ''}
+              className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
               onClick={() => setActiveFilter('all')}
             >
               Все ({technologies.length})
             </button>
             <button 
-              className={activeFilter === 'not-started' ? 'active' : ''}
+              className={`filter-btn ${activeFilter === 'not-started' ? 'active' : ''}`}
               onClick={() => setActiveFilter('not-started')}
             >
               Не начатые ({technologies.filter(t => t.status === 'not-started').length})
             </button>
             <button 
-              className={activeFilter === 'in-progress' ? 'active' : ''}
+              className={`filter-btn ${activeFilter === 'in-progress' ? 'active' : ''}`}
               onClick={() => setActiveFilter('in-progress')}
             >
               В процессе ({technologies.filter(t => t.status === 'in-progress').length})
             </button>
             <button 
-              className={activeFilter === 'completed' ? 'active' : ''}
+              className={`filter-btn ${activeFilter === 'completed' ? 'active' : ''}`}
               onClick={() => setActiveFilter('completed')}
             >
               Выполненные ({technologies.filter(t => t.status === 'completed').length})
@@ -119,15 +112,16 @@ function App() {
           </div>
         </div>
 
-        {/* Список технологий */}
         <section className="technologies-list">
-          <h2>
-            {activeFilter === 'all' ? 'Все технологии' : 
-             activeFilter === 'not-started' ? 'Технологии не начатые' :
-             activeFilter === 'in-progress' ? 'Технологии в процессе' :
-             'Выполненные технологии'}
-            <span className="tech-count"> ({filteredTechnologies.length})</span>
-          </h2>
+          <div className="section-header">
+            <h2 className="section-title">
+              {activeFilter === 'all' ? 'Все технологии' : 
+               activeFilter === 'not-started' ? 'Технологии не начатые' :
+               activeFilter === 'in-progress' ? 'Технологии в процессе' :
+               'Выполненные технологии'}
+            </h2>
+            <span className="tech-count">({filteredTechnologies.length})</span>
+          </div>
           
           <div className="tech-grid">
             {filteredTechnologies.length > 0 ? (
@@ -143,8 +137,8 @@ function App() {
               ))
             ) : (
               <div className="empty-state">
-                <p>📭 Нет технологий с выбранным статусом</p>
-                <button onClick={() => setActiveFilter('all')}>
+                <p>Нет технологий с выбранным статусом</p>
+                <button className="btn btn-secondary" onClick={() => setActiveFilter('all')}>
                   Показать все технологии
                 </button>
               </div>
@@ -152,9 +146,8 @@ function App() {
           </div>
         </section>
 
-        {/* Информация о категориях */}
         <div className="categories-info">
-          <h3>📂 Категории технологий:</h3>
+          <h3 className="section-title">Категории технологий</h3>
           <div className="categories-list">
             {categories.map(cat => (
               <span key={cat} className="category-tag">{cat}</span>
