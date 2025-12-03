@@ -113,6 +113,63 @@
   font-size: 1rem;
 }
 
+/* Notes section styles */
+.notes-section {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.notes-section:hover {
+  background: #f1f3f4;
+  border-color: #dee2e6;
+}
+
+.notes-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notes-title::before {
+  content: '📝';
+  font-size: 1rem;
+}
+
+.notes-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 80px;
+  max-height: 150px;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.notes-textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.notes-hint {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
 .card-footer {
   display: flex;
   justify-content: space-between;
@@ -202,6 +259,14 @@
   .change-status-btn {
     opacity: 1;
     transform: translateY(0);
+  }
+  
+  .notes-section {
+    padding: 0.75rem;
+  }
+  
+  .notes-textarea {
+    min-height: 60px;
   }
   
   .card-footer {

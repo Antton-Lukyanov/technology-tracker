@@ -1,6 +1,6 @@
 import './TechnologyCard.css';
 
-function TechnologyCard({ id, title, description, status, onStatusChange }) {
+function TechnologyCard({ id, title, description, status, notes, onStatusChange, onNotesChange }) {
   const handleCardClick = () => {
     const nextStatus = {
       'not-started': 'in-progress',
@@ -9,6 +9,15 @@ function TechnologyCard({ id, title, description, status, onStatusChange }) {
     }[status];
     
     onStatusChange(id, nextStatus);
+  };
+
+  const handleNotesChange = (e) => {
+    e.stopPropagation(); // Предотвращаем срабатывание клика по карточке
+    onNotesChange(id, e.target.value);
+  };
+
+  const handleNotesClick = (e) => {
+    e.stopPropagation(); // Предотвращаем срабатывание клика по карточке
   };
 
   const statusConfig = {
@@ -54,6 +63,23 @@ function TechnologyCard({ id, title, description, status, onStatusChange }) {
         <h3 className="card-title">{title}</h3>
         
         <p className="card-description">{description}</p>
+        
+        <div className="notes-section" onClick={handleNotesClick}>
+          <h4 className="notes-title">Мои заметки:</h4>
+          <textarea
+            value={notes}
+            onChange={handleNotesChange}
+            placeholder="Записывайте сюда важные моменты..."
+            rows="3"
+            className="notes-textarea"
+            onClick={handleNotesClick}
+          />
+          <div className="notes-hint">
+            {notes.length > 0 
+              ? `Заметка сохранена (${notes.length} символов)` 
+              : 'Добавьте заметку'}
+          </div>
+        </div>
         
         <div className="card-footer">
           <div className="progress-hint">
