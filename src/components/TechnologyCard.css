@@ -1,60 +1,104 @@
 .technology-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  margin: 15px 0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  border-left: 6px solid #ccc;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
-.technology-card.completed {
-  border-left-color: #4CAF50;
+.technology-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-.technology-card.in-progress {
-  border-left-color: #FF9800;
+.technology-card:active {
+  transform: translateY(-2px);
 }
 
-.technology-card.not-started {
-  border-left-color: #9E9E9E;
+/* Анимация при изменении статуса */
+@keyframes statusChange {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
 }
 
-.technology-card h3 {
-  margin-bottom: 10px;
-  color: #333;
+.status-changing {
+  animation: statusChange 0.4s ease;
 }
 
-.technology-card p {
-  color: #666;
+/* Стили для разных статусов */
+.status-not-started {
+  border-left-color: #ff6b6b;
+  background: linear-gradient(135deg, #fff 0%, #ffeaea 100%);
+}
+
+.status-in-progress {
+  border-left-color: #4ecdc4;
+  background: linear-gradient(135deg, #fff 0%, #e6f7f6 100%);
+}
+
+.status-completed {
+  border-left-color: #45b7d1;
+  background: linear-gradient(135deg, #fff 0%, #e6f4ff 100%);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
 }
 
-.status-indicator {
+.status-icon {
+  font-size: 1.5em;
+}
+
+.card-description {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  min-height: 60px;
+}
+
+.card-footer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
 }
 
-.status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-
-.status-dot.completed {
-  background: #4CAF50;
-}
-
-.status-dot.in-progress {
-  background: #FF9800;
-}
-
-.status-dot.not-started {
-  background: #9E9E9E;
-}
-
-.status-text {
-  font-size: 0.9em;
-  text-transform: uppercase;
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.status-not-started {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.status-badge.status-in-progress {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.status-badge.status-completed {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.click-hint {
+  font-size: 0.8em;
+  color: #888;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.technology-card:hover .click-hint {
+  opacity: 1;
 }
