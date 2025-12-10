@@ -1,0 +1,390 @@
+/* Statistics.css */
+
+.statistics-page {
+  padding: 30px 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f0fdf4 100%);
+  position: relative;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Декоративные элементы */
+.page-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.05) 0%,
+    transparent 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Карточки статистики */
+.stat-card {
+  border-radius: 20px !important;
+  border: 1px solid #e5e7eb !important;
+  background: white !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  border-radius: 20px 20px 0 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2) !important;
+  border-color: #d1fae5 !important;
+}
+
+.stat-card:hover::before {
+  opacity: 1;
+}
+
+.stat-card.highlight {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%) !important;
+  border: 2px solid #d1fae5 !important;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.15) !important;
+}
+
+.stat-card.highlight::before {
+  opacity: 1;
+  height: 6px;
+}
+
+/* Карточки графиков */
+.chart-card {
+  border-radius: 20px !important;
+  border: 1px solid #e5e7eb !important;
+  background: white !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1) !important;
+  transition: all 0.3s ease !important;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #34d399, #059669);
+  border-radius: 20px 20px 0 0;
+}
+
+.chart-card:hover {
+  box-shadow: 0 8px 30px rgba(16, 185, 129, 0.2) !important;
+  transform: translateY(-3px);
+}
+
+/* Карточка прогресса */
+.progress-card {
+  border-radius: 20px !important;
+  border: 1px solid #d1fae5 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.progress-card:hover {
+  box-shadow: 0 8px 30px rgba(16, 185, 129, 0.2) !important;
+  border-color: #10b981 !important;
+}
+
+/* Карточка детализации */
+.details-card {
+  border-radius: 20px !important;
+  border: 1px solid #e5e7eb !important;
+  background: white !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.details-card:hover {
+  box-shadow: 0 8px 30px rgba(16, 185, 129, 0.2) !important;
+  border-color: #d1fae5 !important;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-card,
+.chart-card,
+.progress-card,
+.details-card {
+  animation: slideDown 0.5s ease-out;
+}
+
+.stat-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.stat-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.stat-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.stat-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Сегменты прогресс бара */
+.chart-segment {
+  transition: all 0.3s ease;
+}
+
+.chart-segment:hover {
+  filter: brightness(1.1);
+}
+
+/* Стили для recharts */
+.recharts-default-tooltip {
+  border-radius: 8px !important;
+  border: 1px solid #d1fae5 !important;
+  background-color: white !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.recharts-tooltip-label {
+  color: #065f46 !important;
+  font-weight: 600 !important;
+}
+
+.recharts-tooltip-item {
+  color: #1f2937 !important;
+}
+
+.recharts-legend-item-text {
+  color: #4b5563 !important;
+  font-weight: 500 !important;
+}
+
+/* Кастомные стили для Material-UI */
+.MuiChip-root {
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.2s ease !important;
+}
+
+.MuiChip-root:hover {
+  transform: translateY(-1px);
+}
+
+.MuiButton-root {
+  text-transform: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  border-radius: 12px !important;
+}
+
+.MuiIconButton-root {
+  transition: transform 0.3s ease !important;
+}
+
+.MuiIconButton-root:hover {
+  transform: scale(1.1);
+}
+
+/* Темная тема */
+body.dark-theme .statistics-page {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+}
+
+body.dark-theme .page-decoration {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.1) 0%,
+    transparent 100%
+  );
+}
+
+body.dark-theme .stat-card {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%) !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .stat-card.highlight {
+  background: linear-gradient(135deg, #1f2937 0%, #064e3b 100%) !important;
+  border-color: #047857 !important;
+}
+
+body.dark-theme .chart-card {
+  background: #1f2937 !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .progress-card {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%) !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .details-card {
+  background: #1f2937 !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .tech-stat-item:hover {
+  background-color: #374151 !important;
+  border-color: #4b5563 !important;
+}
+
+body.dark-theme .recharts-default-tooltip {
+  background-color: #1f2937 !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .recharts-tooltip-label,
+body.dark-theme .recharts-tooltip-item {
+  color: #d1d5db !important;
+}
+
+body.dark-theme .recharts-legend-item-text {
+  color: #9ca3af !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .statistics-page {
+    padding: 20px 15px;
+  }
+
+  .page-header {
+    margin-bottom: 20px !important;
+  }
+
+  .MuiTypography-h3 {
+    font-size: 2rem !important;
+  }
+
+  .MuiTypography-h5 {
+    font-size: 1.25rem !important;
+  }
+
+  .chart-segment {
+    font-size: 0.75rem !important;
+  }
+
+  .tech-stat-item {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .statistics-page {
+    padding: 15px 10px;
+  }
+
+  .MuiTypography-h3 {
+    font-size: 1.5rem !important;
+  }
+
+  .chart-legend {
+    flex-direction: column;
+    gap: 0.5rem !important;
+  }
+
+  .recharts-legend {
+    display: none !important;
+  }
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0fdf4;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a7f3d0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+body.dark-theme ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+/* Состояние загрузки */
+.loading .page-decoration {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.1) 0%,
+    transparent 100%
+  );
+}
+
+.loading .MuiLinearProgress-bar {
+  animation: loadingPulse 2s ease-in-out infinite;
+}
+
+@keyframes loadingPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}

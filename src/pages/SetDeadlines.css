@@ -1,0 +1,360 @@
+/* SetDeadlines.css */
+
+.deadlines-page {
+  padding: 30px 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f0fdf4 100%);
+  position: relative;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Декоративные элементы */
+.page-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.05) 0%,
+    transparent 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Карточка статистики */
+.stats-card {
+  border-radius: 20px !important;
+  border: 2px solid #d1fae5 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  animation: slideDown 0.5s ease-out 0.2s both;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.25) !important;
+  border-color: #10b981 !important;
+}
+
+/* Карточки статистики */
+.stat-card {
+  border-radius: 16px !important;
+  border: 1px solid #e5e7eb !important;
+  background: white !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1) !important;
+  transition: all 0.3s ease !important;
+  height: 100%;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2) !important;
+  border-color: #d1fae5 !important;
+}
+
+.stat-card.warning {
+  border: 1px solid #fee2e2 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%) !important;
+}
+
+.stat-card.upcoming {
+  border: 1px solid #dbeafe !important;
+  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%) !important;
+}
+
+/* Панель информации */
+.info-panel {
+  border-radius: 20px !important;
+  border: 2px solid #fef3c7 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%) !important;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.15) !important;
+  animation: slideDown 0.5s ease-out 0.3s both;
+}
+
+.info-panel:hover {
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2) !important;
+  border-color: #f59e0b !important;
+}
+
+/* Карточка для пустого состояния */
+.empty-card {
+  border-radius: 20px !important;
+  border: 2px dashed #d1fae5 !important;
+  background: white !important;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.1) !important;
+  transition: all 0.3s ease !important;
+  animation: slideDown 0.5s ease-out 0.4s both;
+}
+
+.empty-card:hover {
+  border-color: #10b981 !important;
+  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Карточка с подсказками */
+.tips-card {
+  border-radius: 20px !important;
+  border: 2px solid #e0e7ff !important;
+  background: linear-gradient(135deg, #ffffff 0%, #eef2ff 100%) !important;
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15) !important;
+  transition: all 0.3s ease !important;
+  animation: slideDown 0.5s ease-out 0.5s both;
+}
+
+.tips-card:hover {
+  border-color: #6366f1 !important;
+  box-shadow: 0 12px 35px rgba(99, 102, 241, 0.2) !important;
+  transform: translateY(-3px);
+}
+
+/* Успешное сообщение */
+.success-alert {
+  animation: slideDown 0.5s ease-out !important;
+}
+
+.success-alert .MuiAlert-icon {
+  font-size: 28px !important;
+}
+
+.success-alert .MuiAlert-message {
+  padding: 8px 0;
+}
+
+/* Стили для состояния загрузки */
+.loading .page-decoration {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.1) 0%,
+    transparent 100%
+  );
+}
+
+.loading .MuiLinearProgress-bar {
+  animation: loadingPulse 2s ease-in-out infinite;
+}
+
+@keyframes loadingPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Стили для состояния ошибки */
+.error .page-decoration {
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.05) 0%,
+    transparent 100%
+  );
+}
+
+/* Кастомные стили для Material-UI */
+.MuiChip-root {
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.2s ease !important;
+}
+
+.MuiChip-root:hover {
+  transform: translateY(-1px);
+}
+
+.MuiButton-root {
+  text-transform: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  border-radius: 12px !important;
+}
+
+.MuiIconButton-root {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.MuiIconButton-root:hover {
+  transform: scale(1.1);
+}
+
+/* Темная тема */
+body.dark-theme .deadlines-page {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+}
+
+body.dark-theme .page-decoration {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.1) 0%,
+    transparent 100%
+  );
+}
+
+body.dark-theme .stats-card {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%) !important;
+  border-color: #065f46 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .stat-card {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%) !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .stat-card.warning {
+  background: linear-gradient(135deg, #1f2937 0%, #7f1d1d 100%) !important;
+  border-color: #991b1b !important;
+}
+
+body.dark-theme .stat-card.upcoming {
+  background: linear-gradient(135deg, #1f2937 0%, #1e3a8a 100%) !important;
+  border-color: #1d4ed8 !important;
+}
+
+body.dark-theme .info-panel {
+  background: linear-gradient(135deg, #1f2937 0%, #78350f 100%) !important;
+  border-color: #92400e !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .empty-card {
+  background: #1f2937 !important;
+  border-color: #374151 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .tips-card {
+  background: linear-gradient(135deg, #1f2937 0%, #312e81 100%) !important;
+  border-color: #4f46e5 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .success-alert {
+  background-color: #064e3b !important;
+  border-color: #047857 !important;
+  color: #a7f3d0 !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .deadlines-page {
+    padding: 20px 15px;
+  }
+
+  .page-header {
+    margin-bottom: 20px !important;
+  }
+
+  .MuiTypography-h3 {
+    font-size: 2rem !important;
+  }
+
+  .stats-card {
+    min-width: 100% !important;
+  }
+
+  .info-panel {
+    padding: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .deadlines-page {
+    padding: 15px 10px;
+  }
+
+  .MuiTypography-h3 {
+    font-size: 1.5rem !important;
+  }
+
+  .stat-card {
+    margin-bottom: 16px;
+  }
+
+  .tips-card .MuiBox-root {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Специальные эффекты */
+.gradient-text {
+  background: linear-gradient(135deg, #10b981, #34d399, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0fdf4;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a7f3d0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+body.dark-theme ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+/* Анимация для элементов статистики */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-card .MuiTypography-h4 {
+  animation: countUp 0.8s ease-out;
+}

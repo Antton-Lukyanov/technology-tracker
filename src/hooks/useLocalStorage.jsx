@@ -32,22 +32,6 @@ function useLocalStorage(key, initialValue) {
     }
   };
 
-  // Синхронизация между вкладками
-  useEffect(() => {
-    const handleStorageChange = (e) => {
-      if (e.key === key && e.newValue !== JSON.stringify(storedValue)) {
-        try {
-          setStoredValue(JSON.parse(e.newValue));
-        } catch (error) {
-          console.error(`Ошибка синхронизации localStorage ключа "${key}":`, error);
-        }
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, [key, storedValue]);
-
   return [storedValue, setValue];
 }
 

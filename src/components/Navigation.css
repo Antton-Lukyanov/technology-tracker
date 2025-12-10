@@ -1,0 +1,700 @@
+/* Navigation.css - СОВРЕМЕННЫЙ ДИЗАЙН В ЗЕЛЕНОЙ ТЕМЕ */
+
+/* Основной контейнер навигации */
+.main-navigation {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-bottom: 1px solid #d1fae5;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Декоративные элементы */
+.nav-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.nav-bg-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+      circle at 10% 20%,
+      rgba(16, 185, 129, 0.05) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 90% 30%,
+      rgba(16, 185, 129, 0.03) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(16, 185, 129, 0.02) 0%,
+      transparent 30%
+    );
+}
+
+.nav-accent-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #10b981 0%,
+    #34d399 25%,
+    #059669 50%,
+    #34d399 75%,
+    #10b981 100%
+  );
+  background-size: 200% 100%;
+  animation: gradientFlow 8s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Основной контейнер */
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 250px 1fr 200px;
+  align-items: center;
+  gap: 30px;
+  padding: 15px 30px;
+  position: relative;
+}
+
+/* Бренд (левая часть) */
+.nav-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 100%);
+  border: 1px solid #a7f3d0;
+}
+
+.brand-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.brand-icon {
+  font-size: 2.2em;
+  line-height: 1;
+}
+
+.brand-text h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.brand-subtitle {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #047857;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Центральная навигация */
+.nav-center {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+
+.nav-scroll-container {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #a7f3d0 transparent;
+  position: relative;
+  padding: 10px 0;
+  margin: 0 15px;
+}
+
+.nav-scroll-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.nav-scroll-container::-webkit-scrollbar-track {
+  background: #f0fdf4;
+  border-radius: 2px;
+}
+
+.nav-scroll-container::-webkit-scrollbar-thumb {
+  background: #a7f3d0;
+  border-radius: 2px;
+}
+
+.nav-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+/* Активный индикатор */
+.active-indicator {
+  position: absolute;
+  bottom: 5px;
+  height: 3px;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  border-radius: 3px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Меню навигации */
+.nav-menu {
+  display: flex;
+  gap: 8px;
+  padding: 5px;
+  min-width: max-content;
+}
+
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #374151;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  min-width: 90px;
+  border: 1px solid transparent;
+  background: white;
+}
+
+.nav-link:hover {
+  background: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 100%);
+  color: #065f46;
+  border-color: #a7f3d0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.nav-link.active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  border-color: #10b981;
+}
+
+.nav-link.active:hover {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.nav-icon {
+  font-size: 1.4em;
+  line-height: 1;
+}
+
+.nav-label {
+  font-size: 0.85em;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+/* Эффект пинг для активной ссылки */
+.nav-ping {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  border: 2px solid white;
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Кнопки прокрутки */
+.scroll-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.scroll-indicator.left {
+  left: -15px;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.scroll-indicator.right {
+  right: -15px;
+  background: linear-gradient(to left, white, transparent);
+}
+
+.scroll-indicator.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-btn {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #d1fae5;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.scroll-btn:hover {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #10b981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  transform: scale(1.1);
+}
+
+.scroll-btn:hover svg {
+  stroke: white;
+}
+
+.scroll-btn:active {
+  transform: scale(0.95);
+}
+
+.scroll-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke: #10b981;
+  transition: stroke 0.3s ease;
+}
+
+/* Правая часть навигации */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: flex-end;
+}
+
+/* Круговой прогресс */
+.nav-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-circle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.circular-chart {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #f0fdf4;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke: #10b981;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  animation: progress 1s ease-out forwards;
+  transform-origin: center;
+  transform: rotate(-90deg);
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0, 100;
+  }
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #065f46;
+}
+
+/* Мобильная навигация */
+.mobile-nav {
+  display: none;
+  background: white;
+  border-top: 1px solid #d1fae5;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.mobile-nav-menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.mobile-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #6b7280;
+  font-size: 0.75rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  min-width: 60px;
+}
+
+.mobile-nav-link.active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.mobile-nav-icon {
+  font-size: 1.2em;
+}
+
+.mobile-nav-label {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Темная тема */
+body.dark-theme .main-navigation {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  border-bottom-color: #065f46;
+  background-color: rgba(31, 41, 55, 0.95);
+}
+
+body.dark-theme .nav-bg-pattern {
+  background-image: radial-gradient(
+      circle at 10% 20%,
+      rgba(16, 185, 129, 0.08) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 90% 30%,
+      rgba(16, 185, 129, 0.05) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(16, 185, 129, 0.03) 0%,
+      transparent 30%
+    );
+}
+
+body.dark-theme .brand-link {
+  background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+  border-color: #065f46;
+}
+
+body.dark-theme .brand-text h2 {
+  background: linear-gradient(135deg, #a7f3d0 0%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.dark-theme .brand-subtitle {
+  color: #a7f3d0;
+}
+
+body.dark-theme .nav-link {
+  background: #374151;
+  color: #d1d5db;
+}
+
+body.dark-theme .nav-link:hover {
+  background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+  color: #a7f3d0;
+  border-color: #065f46;
+}
+
+body.dark-theme .nav-link.active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+body.dark-theme .scroll-btn {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  border-color: #065f46;
+}
+
+body.dark-theme .scroll-btn:hover {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+body.dark-theme .circle-bg {
+  stroke: #064e3b;
+}
+
+body.dark-theme .progress-text {
+  color: #a7f3d0;
+}
+
+body.dark-theme .mobile-nav {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  border-top-color: #065f46;
+  background-color: rgba(31, 41, 55, 0.95);
+}
+
+body.dark-theme .mobile-nav-link {
+  color: #9ca3af;
+}
+
+body.dark-theme .mobile-nav-link.active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+  .nav-container {
+    grid-template-columns: 200px 1fr 180px;
+    gap: 20px;
+    padding: 15px 20px;
+  }
+
+  .nav-link {
+    padding: 10px 16px;
+    min-width: 80px;
+  }
+
+  .nav-icon {
+    font-size: 1.2em;
+  }
+
+  .nav-label {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 992px) {
+  .nav-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .nav-brand {
+    justify-content: center;
+  }
+
+  .nav-right {
+    display: none;
+  }
+
+  .nav-center {
+    order: 2;
+  }
+
+  .nav-scroll-container {
+    margin: 0 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-navigation {
+    padding-bottom: 70px; /* Отступ для мобильной навигации */
+  }
+
+  .nav-container {
+    padding: 10px 15px;
+  }
+
+  .brand-link {
+    padding: 6px 12px;
+  }
+
+  .brand-text h2 {
+    font-size: 1.1rem;
+  }
+
+  .nav-menu {
+    gap: 4px;
+  }
+
+  .nav-link {
+    padding: 8px 12px;
+    min-width: 70px;
+    font-size: 0.8rem;
+  }
+
+  .nav-icon {
+    font-size: 1.1em;
+  }
+
+  .nav-label {
+    font-size: 0.75em;
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .brand-text h2 {
+    font-size: 1rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .nav-menu {
+    justify-content: center;
+  }
+
+  .nav-link {
+    padding: 6px 10px;
+    min-width: 65px;
+    font-size: 0.75rem;
+  }
+
+  .nav-icon {
+    font-size: 1em;
+  }
+
+  .nav-label {
+    font-size: 0.7em;
+  }
+
+  .mobile-nav-menu {
+    padding: 0 5px;
+  }
+
+  .mobile-nav-link {
+    padding: 6px 8px;
+    min-width: 50px;
+    font-size: 0.7rem;
+  }
+
+  .mobile-nav-icon {
+    font-size: 1.1em;
+  }
+}
+
+/* Анимации при загрузке */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-navigation {
+  animation: slideDown 0.5s ease-out;
+}
+
+/* Плавный скролл для навигации */
+.nav-scroll-container {
+  scroll-behavior: smooth;
+}
+
+/* Ховер-эффекты для десктопа */
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover .nav-icon {
+    animation: bounce 0.5s ease;
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+}

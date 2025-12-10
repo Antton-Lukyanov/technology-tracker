@@ -1,0 +1,352 @@
+/* TechnologyList.css - СОВРЕМЕННЫЙ ДИЗАЙН */
+
+.technology-list-page {
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #f8fafc 0%, #f0fdf4 100%);
+  min-height: 100vh;
+}
+
+/* Заголовок страницы */
+.page-header {
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Карточки статистики */
+.stat-card {
+  border-radius: 16px !important;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1) !important;
+  transition: all 0.3s ease !important;
+  overflow: hidden;
+  position: relative;
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  border-radius: 16px 16px 0 0;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2) !important;
+  border-color: #d1fae5;
+}
+
+/* Панель управления */
+.control-panel {
+  border-radius: 16px !important;
+  border: 1px solid #d1fae5 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.control-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #34d399, #059669);
+}
+
+/* Таблица технологий */
+.tech-table-container {
+  border-radius: 16px !important;
+  border: 1px solid #e5e7eb !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1) !important;
+  background: white !important;
+}
+
+.tech-table-row {
+  transition: all 0.2s ease !important;
+  position: relative;
+}
+
+.tech-table-row::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #f0fdf4, transparent);
+}
+
+.tech-table-row:last-child::after {
+  display: none;
+}
+
+.tech-table-row:hover {
+  background-color: #f0fdf4 !important;
+}
+
+/* Сводка */
+.summary-card {
+  border-radius: 16px !important;
+  border: 1px solid #d1fae5 !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #f0fdf4 100%) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Кастомные стили для Material-UI компонентов */
+.MuiTableCell-head {
+  font-weight: 700 !important;
+  color: #065f46 !important;
+  background-color: #f8fafc !important;
+  border-bottom: 2px solid #d1fae5 !important;
+}
+
+.MuiTableCell-body {
+  border-bottom: 1px solid #f0fdf4 !important;
+}
+
+.MuiChip-root {
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+}
+
+.MuiButton-contained {
+  text-transform: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+}
+
+.MuiButton-outlined {
+  text-transform: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.tech-table-row {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Прогресс-бар кастомный */
+.MuiLinearProgress-root {
+  border-radius: 4px !important;
+}
+
+/* Иконки действий */
+.MuiIconButton-root {
+  transition: all 0.2s ease !important;
+}
+
+.MuiIconButton-root:hover {
+  transform: scale(1.1) !important;
+}
+
+/* Темная тема */
+body.dark-theme .technology-list-page {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+}
+
+body.dark-theme .stat-card {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%) !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .control-panel {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%) !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .tech-table-container {
+  background: #1f2937 !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .summary-card {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%) !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .MuiTableCell-head {
+  background-color: #374151 !important;
+  color: #a7f3d0 !important;
+  border-bottom-color: #4b5563 !important;
+}
+
+body.dark-theme .MuiTableCell-body {
+  color: #d1d5db !important;
+  border-bottom-color: #4b5563 !important;
+}
+
+body.dark-theme .tech-table-row:hover {
+  background-color: #374151 !important;
+}
+
+body.dark-theme .MuiChip-root {
+  background-color: #4b5563 !important;
+  color: #ffffff !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .technology-list-page {
+    padding: 15px;
+  }
+
+  .page-header {
+    margin-bottom: 20px !important;
+  }
+
+  .control-panel {
+    margin-bottom: 20px !important;
+  }
+
+  .tech-table-container {
+    overflow-x: auto !important;
+  }
+
+  .MuiTableCell {
+    padding: 12px 8px !important;
+    font-size: 0.875rem !important;
+  }
+
+  .MuiChip-root {
+    font-size: 0.75rem !important;
+  }
+
+  .stat-card .MuiTypography-h3 {
+    font-size: 2rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .technology-list-page {
+    padding: 10px;
+  }
+
+  .MuiTableHead-root {
+    display: none;
+  }
+
+  .MuiTableBody .MuiTableRow-root {
+    display: block;
+    margin-bottom: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: white;
+  }
+
+  body.dark-theme .MuiTableBody .MuiTableRow-root {
+    border-color: #374151;
+    background: #1f2937;
+  }
+
+  .MuiTableCell {
+    display: block;
+    text-align: right;
+    padding: 8px !important;
+    border-bottom: 1px solid #f0fdf4;
+  }
+
+  body.dark-theme .MuiTableCell {
+    border-bottom-color: #374151;
+  }
+
+  .MuiTableCell:last-child {
+    border-bottom: none;
+  }
+
+  .MuiTableCell::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: 600;
+    color: #065f46;
+  }
+
+  body.dark-theme .MuiTableCell::before {
+    color: #a7f3d0;
+  }
+
+  .tech-table-row {
+    animation: none;
+  }
+}
+
+/* Специальные эффекты для загрузки */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0fdf4 25%, #d1fae5 50%, #f0fdf4 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0fdf4;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a7f3d0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+body.dark-theme ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}

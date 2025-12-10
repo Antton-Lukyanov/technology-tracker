@@ -1,176 +1,384 @@
-import { useState } from 'react';
-import './App.css';
-import TechnologyCard from './components/TechnologyCard';
-import ProgressHeader from './components/ProgressHeader';
-import QuickActions from './components/QuickActions/QuickActions';
-import useTechnologies from './hooks/useTechnologies';
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
+import "./App.css";
+import useTechnologiesApi from "./hooks/useTechnologiesApi";
+import TechnologyCard from "./components/TechnologyCard";
+import ProgressHeader from "./components/ProgressHeader";
+import QuickActions from "./components/QuickActions";
+import Navigation from "./components/Navigation";
+import Statistics from "./pages/Statistics";
+import Settings from "./pages/Settings";
+import TechnologyList from "./pages/TechnologyList";
+import TechnologyDetail from "./pages/TechnologyDetail";
+import RoadmapImporter from "./components/RoadmapImporter";
+import BulkEditPage from "./pages/BulkEditPage";
+import SetDeadlines from "./pages/SetDeadlines";
+import AddTechnology from "./components/AddTechnology";
+import { NotificationProvider } from "./context/NotificationContext";
+import NotificationSystem from "./components/NotificationSystem";
+import { useNotifications } from "./context/NotificationContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
-function App() {
+function AppContent() {
   const {
     technologies,
+    loading,
+    error,
+    refetch,
     updateStatus,
+    addTechnology,
     updateNotes,
-    markAllAsCompleted,
+    markAllCompleted,
     resetAllStatuses,
-    clearAllNotes,
-    pickRandomTech,
-    progress,
-    categoryStats
-  } = useTechnologies();
+  } = useTechnologiesApi();
 
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [forceUpdate, setForceUpdate] = useState(0);
 
-  // Фильтрация по статусу и поисковому запросу
-  const filteredTechnologies = technologies.filter(tech => {
-    // Фильтр по статусу
-    const statusMatch = activeFilter === 'all' || tech.status === activeFilter;
-    
-    // Фильтр по поисковому запросу
-    const searchMatch = searchQuery === '' || 
-      tech.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tech.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tech.notes.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    return statusMatch && searchMatch;
+  // Получаем функцию для показа уведомлений
+  const { showSuccess, showError, showInfo } = useNotifications();
+  const { notifications, removeNotification } = useNotifications();
+
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === "technologies") {
+        setForceUpdate((prev) => prev + 1);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  const handleImportTechnologies = (importedTechs) => {
+    importedTechs.forEach((tech) => {
+      addTechnology(tech);
+    });
+
+    // Показываем уведомление об успешном импорте
+    showSuccess(`Импортировано ${importedTechs.length} технологий`, {
+      title: "Импорт завершен",
+      duration: 3000,
+    });
+  };
+
+  const handleAddTechnology = (newTech) => {
+    console.log("Добавляем технологию:", newTech);
+
+    try {
+      // Используем функцию addTechnology из хука useTechnologiesApi
+      const result = addTechnology(newTech);
+      console.log("Результат добавления:", result);
+
+      // Обновляем интерфейс
+      setForceUpdate((prev) => prev + 1);
+
+      // Показываем уведомление об успехе
+      showSuccess(`Технология "${newTech.title}" успешно добавлена`, {
+        title: "Успешно",
+        duration: 3000,
+      });
+    } catch (error) {
+      // Показываем уведомление об ошибке
+      showError(`Ошибка при добавлении: ${error.message}`, {
+        title: "Ошибка",
+        duration: 5000,
+      });
+    }
+  };
+
+  const handleRandomSelect = () => {
+    const notStartedTechs = technologies.filter(
+      (tech) => tech.status === "not-started"
+    );
+    if (notStartedTechs.length > 0) {
+      const randomTech =
+        notStartedTechs[Math.floor(Math.random() * notStartedTechs.length)];
+      updateStatus(randomTech.id, "in-progress");
+
+      // Показываем информационное уведомление
+      showInfo(`Следующая технология для изучения: ${randomTech.title}`, {
+        title: "Случайный выбор",
+        duration: 4000,
+      });
+    } else {
+      showWarning("Все технологии уже начаты или завершены!", {
+        title: "Внимание",
+        duration: 3000,
+      });
+    }
+  };
+
+  // Обработчик для markAllCompleted с уведомлением
+  const handleMarkAllCompleted = () => {
+    const result = markAllCompleted();
+    if (result) {
+      showSuccess("Все технологии помечены как изученные!", {
+        title: "Массовое обновление",
+        duration: 3000,
+      });
+    }
+  };
+
+  // Обработчик для resetAllStatuses с уведомлением
+  const handleResetAllStatuses = () => {
+    const result = resetAllStatuses();
+    if (result) {
+      showInfo("Статусы всех технологий сброшены", {
+        title: "Сброс статусов",
+        duration: 3000,
+      });
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="app-loading">
+        <div className="spinner"></div>
+        <p>Загрузка технологий...</p>
+      </div>
+    );
+  }
+
+  const filteredByStatus = technologies.filter((tech) => {
+    switch (activeFilter) {
+      case "completed":
+        return tech.status === "completed";
+      case "in-progress":
+        return tech.status === "in-progress";
+      case "not-started":
+        return tech.status === "not-started";
+      default:
+        return true;
+    }
   });
 
-  const categories = [...new Set(technologies.map(t => t.category || 'other'))];
+  const filteredTechnologies = filteredByStatus.filter(
+    (tech) =>
+      tech.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tech.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="header-content">
-          <h1>Трекер изучения технологий</h1>
-          <p className="header-subtitle">Используйте переиспользуемые компоненты и кастомные хуки</p>
-        </div>
-      </header>
+    <Router>
+      <div className="App" key={forceUpdate}>
+        <Navigation />
 
-      <main className="container">
-        <ProgressHeader technologies={technologies} progress={progress} />
-
-        <QuickActions
-          onMarkAllCompleted={markAllAsCompleted}
-          onResetAll={resetAllStatuses}
-          onClearAllNotes={clearAllNotes}
-          onPickRandomTech={pickRandomTech}
-          technologies={technologies}
-          categoryStats={categoryStats}
+        {/* Система уведомлений - рендерится всегда */}
+        <NotificationSystem
+          notifications={notifications}
+          onClose={removeNotification}
+          position={{ vertical: "bottom", horizontal: "right" }}
         />
 
-        <div className="search-box">
-          <h3 className="section-title">Поиск технологий</h3>
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Поиск по названию, описанию или заметкам..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input"
-            />
-            <div className="search-info">
-              <span className="search-count">Найдено: {filteredTechnologies.length}</span>
-              {searchQuery && (
-                <button 
-                  onClick={() => setSearchQuery('')}
-                  className="search-clear"
-                >
-                  Очистить поиск
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <header className="app-header">
+                  <h1>Трекер изучения технологий</h1>
+                  <p>
+                    Отслеживайте ваш прогресс в изучении современных технологий
+                  </p>
+                </header>
 
-        <div className="filters">
-          <h3 className="section-title">Фильтровать по статусу</h3>
-          <div className="filter-buttons">
-            <button 
-              className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveFilter('all')}
-            >
-              Все ({technologies.length})
-            </button>
-            <button 
-              className={`filter-btn ${activeFilter === 'not-started' ? 'active' : ''}`}
-              onClick={() => setActiveFilter('not-started')}
-            >
-              Не начатые ({technologies.filter(t => t.status === 'not-started').length})
-            </button>
-            <button 
-              className={`filter-btn ${activeFilter === 'in-progress' ? 'active' : ''}`}
-              onClick={() => setActiveFilter('in-progress')}
-            >
-              В процессе ({technologies.filter(t => t.status === 'in-progress').length})
-            </button>
-            <button 
-              className={`filter-btn ${activeFilter === 'completed' ? 'active' : ''}`}
-              onClick={() => setActiveFilter('completed')}
-            >
-              Выполненные ({technologies.filter(t => t.status === 'completed').length})
-            </button>
-          </div>
-        </div>
+                {error && (
+                  <div className="app-error">
+                    <p>❌ {error}</p>
+                    <button onClick={refetch}>Попробовать снова</button>
+                  </div>
+                )}
 
-        <section className="technologies-list">
-          <div className="section-header">
-            <h2 className="section-title">
-              {activeFilter === 'all' ? 'Все технологии' : 
-               activeFilter === 'not-started' ? 'Технологии не начатые' :
-               activeFilter === 'in-progress' ? 'Технологии в процессе' :
-               'Выполненные технологии'}
-              {searchQuery && ` (по запросу: "${searchQuery}")`}
-            </h2>
-            <span className="tech-count">({filteredTechnologies.length})</span>
-          </div>
-          
-          <div className="tech-grid">
-            {filteredTechnologies.length > 0 ? (
-              filteredTechnologies.map(tech => (
-                <TechnologyCard
-                  key={tech.id}
-                  id={tech.id}
-                  title={tech.title}
-                  description={tech.description}
-                  status={tech.status}
-                  notes={tech.notes}
-                  onStatusChange={updateStatus}
-                  onNotesChange={updateNotes}
+                <ProgressHeader technologies={technologies} />
+
+                {/* Компонент для добавления новых технологий */}
+                <AddTechnology onAddTechnology={handleAddTechnology} />
+
+                <QuickActions
+                  technologies={technologies}
+                  onMarkAllCompleted={handleMarkAllCompleted}
+                  onResetAll={handleResetAllStatuses}
+                  onRandomSelect={handleRandomSelect}
                 />
-              ))
-            ) : (
-              <div className="empty-state">
-                <p>Нет технологий с выбранными критериями</p>
-                <button className="btn btn-secondary" onClick={() => {
-                  setActiveFilter('all');
-                  setSearchQuery('');
-                }}>
-                  Показать все технологии
-                </button>
+
+                <div className="search-box">
+                  <input
+                    type="text"
+                    placeholder="Поиск технологий..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <span>Найдено: {filteredTechnologies.length}</span>
+                </div>
+
+                <div className="filters">
+                  <h3>Фильтры:</h3>
+                  <div className="filter-buttons">
+                    <button
+                      className={activeFilter === "all" ? "active" : ""}
+                      onClick={() => setActiveFilter("all")}
+                    >
+                      Все ({technologies.length})
+                    </button>
+                    <button
+                      className={activeFilter === "not-started" ? "active" : ""}
+                      onClick={() => setActiveFilter("not-started")}
+                    >
+                      Не начаты (
+                      {
+                        technologies.filter((t) => t.status === "not-started")
+                          .length
+                      }
+                      )
+                    </button>
+                    <button
+                      className={activeFilter === "in-progress" ? "active" : ""}
+                      onClick={() => setActiveFilter("in-progress")}
+                    >
+                      В процессе (
+                      {
+                        technologies.filter((t) => t.status === "in-progress")
+                          .length
+                      }
+                      )
+                    </button>
+                    <button
+                      className={activeFilter === "completed" ? "active" : ""}
+                      onClick={() => setActiveFilter("completed")}
+                    >
+                      Изучено (
+                      {
+                        technologies.filter((t) => t.status === "completed")
+                          .length
+                      }
+                      )
+                    </button>
+                  </div>
+                </div>
+
+                <main className="technologies-list">
+                  <h2>
+                    Дорожная карта изучения ({filteredTechnologies.length})
+                  </h2>
+                  {filteredTechnologies.map((tech) => (
+                    <TechnologyCard
+                      key={tech.id}
+                      technology={tech}
+                      onStatusChange={(id, status) => {
+                        updateStatus(id, status);
+                        // Показываем уведомление при изменении статуса
+                        const statusText =
+                          status === "completed"
+                            ? "изучена"
+                            : status === "in-progress"
+                            ? "начата"
+                            : "приостановлена";
+                        showSuccess(
+                          `Технология "${tech.title}" ${statusText}`,
+                          {
+                            duration: 2000,
+                          }
+                        );
+                      }}
+                      onNotesChange={updateNotes}
+                    />
+                  ))}
+                  {filteredTechnologies.length === 0 && (
+                    <div className="empty-state">
+                      <p>Нет технологий, соответствующих выбранному фильтру</p>
+                      <button
+                        onClick={() => {
+                          setSearchQuery("");
+                          setActiveFilter("all");
+                          showInfo("Фильтры сброшены", { duration: 2000 });
+                        }}
+                        style={{
+                          marginTop: "10px",
+                          padding: "8px 16px",
+                          background: "#667eea",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "6px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Сбросить фильтры
+                      </button>
+                    </div>
+                  )}
+                </main>
+              </>
+            }
+          />
+
+          {/* ДОБАВЛЕНО: Роут для /add-technology */}
+          <Route
+            path="/add-technology"
+            element={
+              <div className="page">
+                <div className="page-header">
+                  <h1>Добавление новой технологии</h1>
+                </div>
+                <AddTechnology onAddTechnology={handleAddTechnology} />
               </div>
-            )}
-          </div>
-        </section>
+            }
+          />
 
-        <div className="categories-info">
-          <h3 className="section-title">Категории технологий</h3>
-          <div className="categories-list">
-            {categories.map(cat => (
-              <span key={cat} className="category-tag">{cat}</span>
-            ))}
-          </div>
-        </div>
+          <Route path="/technologies" element={<TechnologyList />} />
 
-        <div className="storage-info">
-          <h3 className="section-title">Информация о хранилище</h3>
-          <p>Данные автоматически сохраняются в localStorage с использованием кастомного хука useLocalStorage. Все заметки и статусы сохраняются после перезагрузки страницы.</p>
-        </div>
-      </main>
+          <Route path="/technology/:techId" element={<TechnologyDetail />} />
 
-      <footer className="footer">
-        <p>© 2025 Трекер технологий • Кастомные хуки и переиспользуемые компоненты • React State Management</p>
-      </footer>
-    </div>
+          <Route path="/statistics" element={<Statistics />} />
+
+          <Route path="/settings" element={<Settings />} />
+
+          <Route path="/bulk-edit" element={<BulkEditPage />} />
+
+          <Route path="/deadlines" element={<SetDeadlines />} />
+
+          {/* ДОБАВЛЕНО: Роут для 404 ошибок */}
+          <Route
+            path="*"
+            element={
+              <div className="page">
+                <div className="page-header">
+                  <h1>404 - Страница не найдена</h1>
+                </div>
+                <div style={{ textAlign: "center", padding: "50px" }}>
+                  <p>Страница, которую вы ищете, не существует.</p>
+                  <a
+                    href="/"
+                    style={{
+                      color: "#6366f1",
+                      textDecoration: "underline",
+                      fontSize: "1.1em",
+                    }}
+                  >
+                    Вернуться на главную
+                  </a>
+                </div>
+              </div>
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+// Главный компонент, обернутый в провайдеры
+function App() {
+  return (
+    <ThemeProvider>
+      <NotificationProvider>
+        <AppContent />
+      </NotificationProvider>
+    </ThemeProvider>
   );
 }
 

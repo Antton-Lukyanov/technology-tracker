@@ -1,0 +1,479 @@
+/* BulkEditPage.css */
+
+.bulk-edit-page {
+  padding: 30px 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f0fdf4 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Анимированный фон */
+.animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+      circle at 10% 20%,
+      rgba(16, 185, 129, 0.1) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 90% 30%,
+      rgba(16, 185, 129, 0.08) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(16, 185, 129, 0.05) 0%,
+      transparent 30%
+    );
+  z-index: 0;
+  pointer-events: none;
+  animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(20px, 20px);
+  }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Карточка статистики */
+.stats-overview {
+  border-radius: 24px !important;
+  border: 2px solid #d1fae5 !important;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.95) 100%
+  ) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Элементы статистики */
+.stat-item {
+  border-radius: 16px !important;
+  border: 2px solid transparent !important;
+  background: white !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  transition: all 0.3s ease;
+}
+
+.stat-item.total::before {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+.stat-item.completed::before {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.stat-item.in-progress::before {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.stat-item.not-started::before {
+  background: linear-gradient(90deg, #6b7280, #9ca3af);
+}
+
+.stat-item:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.stat-item.total:hover {
+  border-color: #3b82f6 !important;
+}
+
+.stat-item.completed:hover {
+  border-color: #10b981 !important;
+}
+
+.stat-item.in-progress:hover {
+  border-color: #f59e0b !important;
+}
+
+.stat-item.not-started:hover {
+  border-color: #6b7280 !important;
+}
+
+/* Информационная карточка */
+.info-card {
+  border-radius: 20px !important;
+  border: 2px solid #dbeafe !important;
+  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%) !important;
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.15) !important;
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.info-card:hover {
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2) !important;
+  transform: translateY(-2px);
+}
+
+/* Карточка для пустого состояния */
+.empty-state-card {
+  border-radius: 24px !important;
+  border: 2px dashed #d1fae5 !important;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.9) 100%
+  ) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+.empty-state-card:hover {
+  border-color: #10b981 !important;
+  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Карточка с подсказками */
+.tips-card {
+  border-radius: 20px !important;
+  border: 2px solid #fef3c7 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%) !important;
+  box-shadow: 0 8px 30px rgba(245, 158, 11, 0.15) !important;
+  animation: fadeIn 0.8s ease-out 0.6s both;
+}
+
+.tips-card:hover {
+  border-color: #f59e0b !important;
+  box-shadow: 0 12px 40px rgba(245, 158, 11, 0.2) !important;
+}
+
+/* Карточка с советом */
+.tip-item {
+  border-radius: 12px !important;
+  border: 1px solid #e5e7eb !important;
+  background: white !important;
+  transition: all 0.3s ease !important;
+}
+
+.tip-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+  border-color: #d1fae5 !important;
+}
+
+/* Успешное сообщение */
+.success-alert {
+  animation: slideIn 0.5s ease-out !important;
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.25) !important;
+}
+
+/* Карточка ошибки */
+.error-card {
+  border-radius: 20px !important;
+  border: 2px solid #fee2e2 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%) !important;
+  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.15) !important;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Кастомные стили для Material-UI */
+.MuiChip-root {
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.3s ease !important;
+}
+
+.MuiChip-root:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.MuiButton-root {
+  text-transform: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  border-radius: 12px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.MuiButton-contained:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+.MuiIconButton-root {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.MuiIconButton-root:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Темная тема */
+body.dark-theme .bulk-edit-page {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+body.dark-theme .animated-background {
+  background: radial-gradient(
+      circle at 10% 20%,
+      rgba(16, 185, 129, 0.15) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 90% 30%,
+      rgba(16, 185, 129, 0.1) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(16, 185, 129, 0.08) 0%,
+      transparent 30%
+    );
+}
+
+body.dark-theme .stats-overview {
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.9) 0%,
+    rgba(15, 23, 42, 0.95) 100%
+  ) !important;
+  border-color: #1e293b !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-theme .stat-item {
+  background: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+body.dark-theme .info-card {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+  border-color: #1e40af !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-theme .empty-state-card {
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.9) 0%,
+    rgba(15, 23, 42, 0.95) 100%
+  ) !important;
+  border-color: #334155 !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-theme .tips-card {
+  background: linear-gradient(135deg, #1e293b 0%, #78350f 100%) !important;
+  border-color: #92400e !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-theme .tip-item {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+body.dark-theme .error-card {
+  background: linear-gradient(135deg, #1e293b 0%, #7f1d1d 100%) !important;
+  border-color: #991b1b !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-theme .success-alert {
+  background-color: rgba(6, 78, 59, 0.95) !important;
+  border-color: #047857 !important;
+  color: #a7f3d0 !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .bulk-edit-page {
+    padding: 20px 15px;
+  }
+
+  .page-header {
+    margin-bottom: 20px !important;
+  }
+
+  .MuiTypography-h3 {
+    font-size: 2rem !important;
+  }
+
+  .stat-item {
+    margin-bottom: 16px;
+  }
+
+  .info-card {
+    padding: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .bulk-edit-page {
+    padding: 15px 10px;
+  }
+
+  .MuiTypography-h3 {
+    font-size: 1.5rem !important;
+  }
+
+  .MuiTypography-h6 {
+    font-size: 1.1rem !important;
+  }
+
+  .tips-card .MuiGrid-item {
+    margin-bottom: 16px;
+  }
+}
+
+/* Специальные эффекты */
+.glow-effect {
+  position: relative;
+}
+
+.glow-effect::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #10b981, #34d399, #059669);
+  border-radius: inherit;
+  z-index: -1;
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-effect:hover::after {
+  opacity: 0.5;
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0fdf4;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  border-radius: 5px;
+  border: 2px solid #f0fdf4;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #059669, #10b981);
+}
+
+body.dark-theme ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #047857, #10b981);
+  border: 2px solid #1e293b;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #065f46, #047857);
+}
+
+/* Анимация для заголовков */
+.page-header {
+  animation: slideIn 0.8s ease-out;
+}
+
+/* Эффект параллакса для фона */
+.parallax-layer {
+  position: absolute;
+  will-change: transform;
+}
+
+.layer-1 {
+  top: 10%;
+  left: 5%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.2) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+}
+
+.layer-2 {
+  top: 70%;
+  right: 10%;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.15) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+}

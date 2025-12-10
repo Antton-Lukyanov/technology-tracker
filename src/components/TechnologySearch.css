@@ -1,0 +1,88 @@
+/* TechnologySearch.css - ЗЕЛЕНАЯ ТЕМА */
+.technology-search {
+  margin: 25px 0;
+}
+
+.search-input-container {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 15px 50px 15px 20px;
+  border: 2px solid #d1fae5;
+  border-radius: 30px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+  background: white;
+  color: #1f2937;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.1);
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+  padding-right: 60px;
+}
+
+.search-loading {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3em;
+  color: #10b981;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.search-input-container::before {
+  content: "🔍";
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  color: #10b981;
+  z-index: 1;
+}
+
+.search-input {
+  padding-left: 45px;
+}
+
+/* Темная тема */
+body.dark-theme .search-input {
+  background: #374151;
+  border-color: #065f46;
+  color: #f9fafb;
+}
+
+body.dark-theme .search-input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}
+
+body.dark-theme .search-input-container::before {
+  color: #34d399;
+}
+
+body.dark-theme .search-loading {
+  color: #34d399;
+}

@@ -1,0 +1,953 @@
+/* AddTechnology.css - Зеленая тема */
+
+.add-technology {
+  position: relative;
+  width: 100%;
+}
+
+/* Кнопка открытия формы */
+.add-tech-toggle-btn {
+  width: 100%;
+  padding: 28px 32px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+}
+
+.add-tech-toggle-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(16, 185, 129, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+.add-tech-toggle-btn:active {
+  transform: translateY(-2px);
+}
+
+.plus-icon {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.add-tech-toggle-btn:hover .plus-icon {
+  transform: rotate(90deg) scale(1.1);
+}
+
+.btn-text {
+  font-size: 1.4rem;
+}
+
+.btn-hint {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+/* Контейнер формы */
+.add-tech-form-container {
+  background: var(--bg-primary);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--border-color);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Заголовок формы */
+.form-header {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-icon {
+  font-size: 3rem;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+.header-text {
+  flex: 1;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.form-subtitle {
+  opacity: 0.9;
+  margin: 0;
+  font-size: 1.1rem;
+  max-width: 600px;
+}
+
+.close-form-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: white;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.5rem;
+}
+
+.close-form-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(90deg);
+}
+
+.close-form-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.close-icon {
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+
+/* Сообщение об успехе */
+.success-message {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 24px 32px;
+  animation: slideDown 0.3s ease;
+}
+
+.success-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.success-icon {
+  font-size: 2.5rem;
+}
+
+.success-content h4 {
+  margin: 0 0 4px 0;
+  font-size: 1.3rem;
+}
+
+.success-content p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Предложения */
+.suggestions-section {
+  padding: 24px 32px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.suggestions-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.suggestions-icon {
+  font-size: 1.3rem;
+  color: #10b981;
+}
+
+.suggestions-description {
+  color: var(--text-secondary);
+  margin: 0 0 20px 0;
+  font-size: 1rem;
+}
+
+.suggestions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.suggestion-card {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.suggestion-card:hover:not(:disabled) {
+  border-color: #10b981;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.1);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.suggestion-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tech-icon {
+  font-size: 2rem;
+}
+
+.tech-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.tech-category {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Форма */
+.add-tech-form {
+  padding: 0;
+}
+
+.form-sections {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.form-section {
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  padding: 28px;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.form-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #10b981, #059669);
+}
+
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 24px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-icon {
+  font-size: 1.2rem;
+  color: #10b981;
+}
+
+/* Группы форм */
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.label-text {
+  font-size: 1rem;
+}
+
+.required {
+  color: #ef4444;
+  font-size: 1.2rem;
+}
+
+/* Поля ввода */
+.input-wrapper,
+.textarea-wrapper,
+.select-wrapper {
+  position: relative;
+}
+
+.input-icon,
+.textarea-icon,
+.select-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #10b981;
+  z-index: 1;
+}
+
+.textarea-icon {
+  top: 24px;
+  transform: none;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-textarea {
+  padding: 16px 16px 16px 48px;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-input.error,
+.form-textarea.error {
+  border-color: #ef4444;
+  animation: shake 0.5s ease;
+}
+
+.form-input:disabled,
+.form-textarea:disabled,
+.form-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.char-count {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+/* Радио кнопки */
+.radio-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 12px 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-primary);
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 120px;
+}
+
+.radio-option:hover:not(:has(input:disabled)) {
+  border-color: var(--difficulty-color);
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--difficulty-color) 10%, transparent);
+}
+
+.radio-option input {
+  display: none;
+}
+
+.radio-custom {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.radio-option input:checked + .radio-custom {
+  border-color: var(--difficulty-color);
+  background: var(--difficulty-color);
+}
+
+.radio-option input:checked + .radio-custom .radio-dot {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+}
+
+.radio-option input:disabled + .radio-custom {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.radio-label {
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+/* Кнопки приоритета */
+.priority-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.priority-btn {
+  flex: 1;
+  padding: 16px 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.priority-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: var(--priority-color);
+  background: var(--priority-bg);
+}
+
+.priority-btn.selected {
+  border-color: var(--priority-color);
+  background: var(--priority-color);
+  color: white;
+}
+
+.priority-btn.selected .priority-icon {
+  filter: brightness(0) invert(1);
+}
+
+.priority-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.priority-icon {
+  font-size: 1.5rem;
+}
+
+.priority-label {
+  font-size: 0.95rem;
+}
+
+/* Действия формы */
+.form-actions {
+  padding: 24px 32px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.action-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stats-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.stats-icon {
+  font-size: 1.1rem;
+  color: #10b981;
+}
+
+.required-hint {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.btn {
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.btn-secondary {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-secondary);
+  transform: translateY(-2px);
+  border-color: #94a3b8;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Подсказки по клавишам */
+.keyboard-hints {
+  position: absolute;
+  right: 32px;
+  bottom: 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.keyboard-hints kbd {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.keyboard-hints kbd + kbd:before {
+  content: "|";
+  color: var(--border-color);
+  margin: 0 8px;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+  color: #ef4444;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #ef4444;
+}
+
+.error-icon {
+  font-size: 1rem;
+}
+
+/* Темная тема - Зеленая палитра */
+@media (prefers-color-scheme: dark) {
+  .add-technology {
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --border-color: #374151;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    background: #1f2937;
+  }
+
+  .radio-option,
+  .priority-btn,
+  .suggestion-card {
+    background: #111827;
+  }
+
+  .btn-secondary {
+    background: #111827;
+  }
+
+  .suggestion-card:hover:not(:disabled) {
+    background: rgba(16, 185, 129, 0.1);
+  }
+
+  .form-section {
+    background: linear-gradient(145deg, #1f2937, #111827);
+  }
+}
+
+/* Светлая тема - Зеленая палитра */
+@media (prefers-color-scheme: light) {
+  .add-technology {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f0fdf4;
+    --border-color: #dcfce7;
+    --text-primary: #166534;
+    --text-secondary: #4d7c0f;
+    --shadow-xl: 0 20px 25px -5px rgba(16, 185, 129, 0.1),
+      0 10px 10px -5px rgba(16, 185, 129, 0.04);
+  }
+
+  .form-section {
+    background: linear-gradient(145deg, #ffffff, #f0fdf4);
+    border-color: #bbf7d0;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    background: #ffffff;
+    border-color: #dcfce7;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus,
+  .form-select:focus {
+    background: #ffffff;
+    border-color: #10b981;
+  }
+
+  .suggestion-card:hover:not(:disabled) {
+    background: #f0fdf4;
+    border-color: #86efac;
+  }
+
+  .radio-option:hover:not(:has(input:disabled)) {
+    background: #f0fdf4;
+  }
+
+  .priority-btn:hover:not(:disabled) {
+    background: var(--priority-bg);
+  }
+
+  .btn-secondary {
+    background: #ffffff;
+    border-color: #dcfce7;
+    color: #166534;
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+  }
+
+  .suggestions-section {
+    background: #f0fdf4;
+  }
+
+  .form-actions {
+    background: #f0fdf4;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .add-tech-toggle-btn {
+    padding: 20px;
+  }
+
+  .btn-text {
+    font-size: 1.2rem;
+  }
+
+  .form-header {
+    padding: 24px 20px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .header-icon {
+    font-size: 2.5rem;
+  }
+
+  .form-title {
+    font-size: 1.6rem;
+  }
+
+  .close-form-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .suggestions-section {
+    padding: 20px;
+  }
+
+  .suggestions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-sections {
+    padding: 20px;
+    gap: 24px;
+  }
+
+  .form-section {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+  }
+
+  .priority-buttons {
+    flex-direction: column;
+  }
+
+  .form-actions {
+    padding: 20px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .keyboard-hints {
+    position: static;
+    justify-content: center;
+    margin-top: 16px;
+  }
+}
+
+/* Анимация пульсации при ошибке */
+@keyframes pulseError {
+  0%,
+  100% {
+    border-color: #ef4444;
+  }
+  50% {
+    border-color: #fecaca;
+  }
+}
+
+.form-input.error:focus {
+  animation: pulseError 1s ease;
+}
+
+/* Дополнительные зеленые акценты */
+.input-icon,
+.textarea-icon,
+.select-icon {
+  filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.2));
+}
+
+.form-section::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}

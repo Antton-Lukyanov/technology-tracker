@@ -1,100 +1,126 @@
+import { useState, useEffect } from 'react';
+import TechnologyResources from './TechnologyResources';
 import './TechnologyCard.css';
 
-function TechnologyCard({ id, title, description, status, notes, onStatusChange, onNotesChange }) {
-  const handleCardClick = () => {
-    const nextStatus = {
-      'not-started': 'in-progress',
-      'in-progress': 'completed',
-      'completed': 'not-started'
-    }[status];
+function TechnologyCard({ technology, onStatusChange, onNotesChange }) {
+  const [showResources, setShowResources] = useState(false);
+  const [localNotes, setLocalNotes] = useState(technology.notes || '');
+
+  useEffect(() => {
+    setLocalNotes(technology.notes || '');
+  }, [technology.notes]);
+
+  const handleClick = () => {
+    const statusOrder = ['not-started', 'in-progress', 'completed'];
+    const currentIndex = statusOrder.indexOf(technology.status);
+    const nextIndex = (currentIndex + 1) % statusOrder.length;
+    const nextStatus = statusOrder[nextIndex];
     
-    onStatusChange(id, nextStatus);
+    onStatusChange(technology.id, nextStatus);
   };
 
   const handleNotesChange = (e) => {
-    e.stopPropagation(); // Предотвращаем срабатывание клика по карточке
-    onNotesChange(id, e.target.value);
+    const value = e.target.value;
+    setLocalNotes(value);
+    onNotesChange(technology.id, value);
   };
 
-  const handleNotesClick = (e) => {
-    e.stopPropagation(); // Предотвращаем срабатывание клика по карточке
+  const getStatusText = (status) => {
+    const statusMap = {
+      'completed': 'Изучено',
+      'in-progress': 'В процессе', 
+      'not-started': 'Не начато'
+    };
+    return statusMap[status] || status;
   };
 
-  const statusConfig = {
-    'not-started': {
-      icon: '⭕',
-      label: 'Не начато',
-      color: '#e74c3c',
-      bgColor: 'rgba(231, 76, 60, 0.1)'
-    },
-    'in-progress': {
-      icon: '🔄',
-      label: 'В процессе',
-      color: '#f39c12',
-      bgColor: 'rgba(243, 156, 18, 0.1)'
-    },
-    'completed': {
-      icon: '✅',
-      label: 'Выполнено',
-      color: '#2ecc71',
-      bgColor: 'rgba(46, 204, 113, 0.1)'
-    }
+  const renderStatusIcon = (status) => {
+    const icons = {
+      'completed': '✅',
+      'in-progress': '⏳',
+      'not-started': '⭕'
+    };
+    return <span className="status-icon">{icons[status] || '📌'}</span>;
   };
-
-  const config = statusConfig[status];
 
   return (
-    <div 
-      className={`technology-card status-${status}`}
-      onClick={handleCardClick}
-      title="Кликните для изменения статуса"
-    >
-      <div className="card-content">
+    <>
+      <div className={`technology-card ${technology.status}`}>
         <div className="card-header">
-          <div className="status-indicator" style={{ backgroundColor: config.bgColor, color: config.color }}>
-            <span className="status-icon">{config.icon}</span>
-            <span className="status-label">{config.label}</span>
-          </div>
-          <div className="card-actions">
-            <button className="change-status-btn">Изменить статус</button>
-          </div>
+          <h3 className="card-title">{technology.title}</h3>
+          <span className={`status-badge ${technology.status}`}>
+            {getStatusText(technology.status)}
+          </span>
         </div>
         
-        <h3 className="card-title">{title}</h3>
+        <div className="card-category">
+          <span className="category-badge">{technology.category || 'frontend'}</span>
+          {technology.difficulty && (
+            <span className={`difficulty-badge difficulty-${technology.difficulty}`}>
+              {technology.difficulty === 'beginner' ? '👶 Начинающий' : 
+               technology.difficulty === 'intermediate' ? '⚡ Средний' : 
+               '🔥 Продвинутый'}
+            </span>
+          )}
+        </div>
         
-        <p className="card-description">{description}</p>
+        <p className="card-description">{technology.description}</p>
         
-        <div className="notes-section" onClick={handleNotesClick}>
-          <h4 className="notes-title">Мои заметки:</h4>
+        {technology.resources && technology.resources.length > 0 && (
+          <div className="resource-preview">
+            <span className="resource-count">
+              📚 {technology.resources.length} ресурс(ов)
+            </span>
+          </div>
+        )}
+        
+        <div className="notes-section">
+          <h4>Мои заметки:</h4>
           <textarea
-            value={notes}
+            value={localNotes}
             onChange={handleNotesChange}
             placeholder="Записывайте сюда важные моменты..."
             rows="3"
-            className="notes-textarea"
-            onClick={handleNotesClick}
           />
           <div className="notes-hint">
-            {notes.length > 0 
-              ? `Заметка сохранена (${notes.length} символов)` 
-              : 'Добавьте заметку'}
+            {localNotes.length > 0 ? `Заметка сохранена (${localNotes.length} символов)` : 'Добавьте заметку'}
           </div>
         </div>
-        
+
+        <div className="card-actions">
+          <button 
+            onClick={handleClick}
+            className={`status-btn ${technology.status}`}
+          >
+            {renderStatusIcon(technology.status)}
+            Сменить статус
+          </button>
+          
+          <button 
+            onClick={() => setShowResources(true)}
+            className="resources-btn"
+          >
+            📚 Ресурсы
+          </button>
+        </div>
+
         <div className="card-footer">
-          <div className="progress-hint">
-            <span className="hint-text">Кликните для переключения статуса</span>
-            <div className="status-flow">
-              <span className="flow-arrow">→</span>
-              <span className="flow-text">Не начато → В процессе → Выполнено</span>
-            </div>
-          </div>
-          <div className="card-id">#{id}</div>
+          <span className="click-hint">Кликните на кнопку для смены статуса</span>
         </div>
       </div>
-      
-      <div className="status-border" style={{ backgroundColor: config.color }}></div>
-    </div>
+
+      {showResources && (
+        <div className="resources-modal">
+          <div className="modal-overlay" onClick={() => setShowResources(false)}></div>
+          <div className="modal-content">
+            <TechnologyResources 
+              technology={technology}
+              onClose={() => setShowResources(false)}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

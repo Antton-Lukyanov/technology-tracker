@@ -1,0 +1,275 @@
+/* QuickActions.css - НОВЫЙ ДИЗАЙН */
+.quick-actions {
+  background: linear-gradient(135deg, #f8fafc 0%, #f0fdf4 100%);
+  border-radius: 20px;
+  padding: 35px;
+  margin: 30px 0;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+  border: 2px solid #d1fae5;
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-actions::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #34d399, #059669);
+  border-radius: 20px 20px 0 0;
+}
+
+.quick-actions h3 {
+  color: #065f46;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+}
+
+.quick-actions h3::before {
+  content: "⚡";
+  font-size: 1.4em;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.action-btn {
+  padding: 25px 20px;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  min-width: 200px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.6s;
+}
+
+.action-btn:hover::before {
+  left: 100%;
+}
+
+.action-btn:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:active {
+  transform: translateY(-2px);
+}
+
+/* Кнопка "Завершить все" */
+.action-btn.complete-all {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.action-btn.complete-all:hover {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+}
+
+.action-btn.complete-all::after {
+  content: "✅";
+  font-size: 1.8em;
+  margin-top: 5px;
+}
+
+/* Кнопка "Сбросить все" */
+.action-btn.reset-all {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+.action-btn.reset-all:hover {
+  background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+}
+
+.action-btn.reset-all::after {
+  content: "🔄";
+  font-size: 1.8em;
+  margin-top: 5px;
+}
+
+/* Кнопка "Выбрать случайную" */
+.action-btn.random-select {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+}
+
+.action-btn.random-select:hover {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+}
+
+.action-btn.random-select::after {
+  content: "🎲";
+  font-size: 1.8em;
+  margin-top: 5px;
+}
+
+/* Подпись под кнопками */
+.action-btn span {
+  font-size: 0.85em;
+  opacity: 0.9;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+/* Темная тема */
+body.dark-theme .quick-actions {
+  background: linear-gradient(135deg, #1f2937 0%, #064e3b 100%);
+  border-color: #065f46;
+}
+
+body.dark-theme .quick-actions h3 {
+  color: #a7f3d0;
+}
+
+body.dark-theme .action-btn {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .action-btn.complete-all {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+body.dark-theme .action-btn.complete-all:hover {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+body.dark-theme .action-btn.reset-all {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+body.dark-theme .action-btn.reset-all:hover {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+body.dark-theme .action-btn.random-select {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+}
+
+body.dark-theme .action-btn.random-select:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .filter-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .action-buttons {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .action-btn {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 30px 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+  }
+
+  .app-header h1 {
+    font-size: 2.2em;
+  }
+
+  .search-box {
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
+
+  .search-box span {
+    width: 100%;
+  }
+
+  .filter-buttons {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .filters,
+  .quick-actions {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: 1.8em;
+  }
+
+  .app-header p {
+    font-size: 1em;
+  }
+
+  .filters h3,
+  .quick-actions h3 {
+    font-size: 1.2em;
+  }
+
+  .action-btn {
+    padding: 20px 15px;
+    font-size: 0.95em;
+  }
+}

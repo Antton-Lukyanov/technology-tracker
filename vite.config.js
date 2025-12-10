@@ -1,7 +1,8 @@
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/technology-tracker/' // Важно: слеши в начале и конце!
+  base: '/technology-tracker/' 
 })

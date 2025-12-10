@@ -1,0 +1,273 @@
+/* TechnologyDetail.css */
+
+.technology-detail-page {
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #f8fafc 0%, #f0fdf4 100%);
+  min-height: 100vh;
+}
+
+/* Заголовок */
+.detail-header {
+  animation: slideDown 0.5s ease-out;
+}
+
+/* Карточка статуса */
+.status-card {
+  border-radius: 20px !important;
+  border: 1px solid #d1fae5 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.status-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #34d399, #059669);
+  border-radius: 20px 20px 0 0;
+}
+
+/* Контейнер табов */
+.tabs-container {
+  border-radius: 12px !important;
+  border: 1px solid #d1fae5 !important;
+  background: white !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1) !important;
+  overflow: hidden;
+}
+
+/* Карточки контента */
+.overview-card,
+.resources-card,
+.notes-card,
+.meta-card,
+.prerequisites-card {
+  border-radius: 16px !important;
+  border: 1px solid #e5e7eb !important;
+  background: white !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.overview-card:hover,
+.resources-card:hover,
+.notes-card:hover,
+.meta-card:hover,
+.prerequisites-card:hover {
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15) !important;
+  border-color: #d1fae5 !important;
+  transform: translateY(-2px);
+}
+
+/* Список ресурсов */
+.MuiListItemButton-root {
+  transition: all 0.2s ease !important;
+}
+
+.MuiListItemButton-root:hover {
+  transform: translateX(4px);
+}
+
+/* FAB действия */
+.action-fab {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Анимации */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.overview-card,
+.resources-card,
+.notes-card,
+.meta-card,
+.prerequisites-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Прогресс-бар кастомный */
+.MuiLinearProgress-root {
+  border-radius: 5px !important;
+}
+
+/* Кнопки статуса */
+.MuiButton-root {
+  text-transform: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  border-radius: 10px !important;
+}
+
+/* Иконки */
+.MuiAvatar-root {
+  transition: transform 0.2s ease !important;
+}
+
+.MuiAvatar-root:hover {
+  transform: scale(1.1);
+}
+
+/* Чипы */
+.MuiChip-root {
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Темная тема */
+body.dark-theme .technology-detail-page {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+}
+
+body.dark-theme .status-card {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%) !important;
+  border-color: #374151 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .tabs-container {
+  background: #1f2937 !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .overview-card,
+body.dark-theme .resources-card,
+body.dark-theme .notes-card,
+body.dark-theme .meta-card,
+body.dark-theme .prerequisites-card {
+  background: #1f2937 !important;
+  border-color: #374151 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .MuiListItemButton-root {
+  border-color: #374151 !important;
+}
+
+body.dark-theme .MuiListItemButton-root:hover {
+  background-color: #374151 !important;
+  border-color: #4b5563 !important;
+}
+
+body.dark-theme .MuiAvatar-root {
+  background-color: #374151 !important;
+  color: #a7f3d0 !important;
+}
+
+body.dark-theme .MuiChip-root {
+  background-color: #4b5563 !important;
+  color: #ffffff !important;
+}
+
+body.dark-theme .MuiAlert-root {
+  background-color: #064e3b !important;
+  border-color: #047857 !important;
+  color: #a7f3d0 !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .technology-detail-page {
+    padding: 15px;
+  }
+
+  .detail-header {
+    margin-bottom: 20px !important;
+  }
+
+  .status-card {
+    margin-bottom: 20px !important;
+  }
+
+  .MuiGrid-container {
+    flex-direction: column-reverse;
+  }
+
+  .MuiTypography-h3 {
+    font-size: 2rem !important;
+  }
+
+  .MuiTypography-h5 {
+    font-size: 1.25rem !important;
+  }
+
+  .action-fab {
+    bottom: 16px;
+    right: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .technology-detail-page {
+    padding: 10px;
+  }
+
+  .MuiTypography-h3 {
+    font-size: 1.5rem !important;
+  }
+
+  .status-card .MuiButton-root {
+    font-size: 0.75rem !important;
+    padding: 8px 12px !important;
+  }
+
+  .tabs-container .MuiButton-root {
+    font-size: 0.875rem !important;
+    padding: 6px 12px !important;
+  }
+}
+
+/* Кастомный скроллбар для текстовых областей */
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: #f0fdf4;
+  border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: #a7f3d0;
+  border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+body.dark-theme textarea::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+body.dark-theme textarea::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+body.dark-theme textarea::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
